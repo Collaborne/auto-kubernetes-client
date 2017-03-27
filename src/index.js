@@ -38,7 +38,7 @@ module.exports = function connect(config, callback) {
 	const k8sRequest = doRequest.bind(this, Object.assign({}, config, { url: config.url.endsWith('/') ? config.url : config.url + '/' }));
 
 	k8sRequest('apis', {}, function(err, response, apiGroups) {
-		function _createApi(groupPath, groupVersion) {
+		function _createApi(groupPath, version) {
 			// Query that API for all possible operations, and map them.
 			return new Promise(function(resolve, reject) {
 				return k8sRequest(groupPath, {}, wrapCallback(function(err, response, apiResources) {
@@ -160,7 +160,7 @@ module.exports = function connect(config, callback) {
 
 					const nsResources = {};
 					const api = {
-						name: groupVersion,
+						name: version.groupVersion,
 						ns: function(namespace) {
 							// Return adapted nsResources for this namespace
 							return Object.keys(nsResources).reduce(function(result, resourceKey) {
@@ -212,11 +212,11 @@ module.exports = function connect(config, callback) {
 		if (err) {
 			return callback(err, null);
 		}
-		
+
 		// Initialize the APIs
 		const apis = {};
 		function _loadApi(groupPath, version) {
-			return _createApi(groupPath, version.groupVersion).then(function(api) {
+			return _createApi(groupPath, version).then(function(api) {
 				apis[api.name || ''] = api;
 				return api;
 			});
@@ -227,10 +227,10 @@ module.exports = function connect(config, callback) {
 		});
 		const coreVersion = config.version || 'v1';
 		const corePath = `api/${coreVersion}`;
-		_createPromises.push(_loadApi(corePath, coreVersion));
+		_createPromises.push(_loadApi(corePath, { groupVersion: coreVersion, version: coreVersion }));
 
 		return Promise.all(_createPromises).then(function() {
-			const coreApi = Object.assign({}, apis['']);
+			const coreApi = Object.assign({}, apis[coreVersion]);
 			delete coreApi.name;
 
 			return callback(null, Object.assign({}, coreApi, {
