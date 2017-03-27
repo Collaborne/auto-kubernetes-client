@@ -1,4 +1,5 @@
-# auto-kubernetes-client
+# auto-kubernetes-client [![Build Status](https://travis-ci.org/Collaborne/auto-kubernetes-client.svg?branch=master)](https://travis-ci.org/Collaborne/auto-kubernetes-client)
+
 NodeJS Kubernetes Client with automatic API discovery
 
 ## License
