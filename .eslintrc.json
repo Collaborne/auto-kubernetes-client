@@ -1,0 +1,26 @@
+{
+	"env": {
+		"commonjs": true,
+		"es6": true,
+		"node": true,
+		"mocha": true
+	},
+	"parserOptions": {
+		"ecmaFeatures": {
+			"jsx": false
+		},
+		"sourceType": "module"
+	},
+	"rules": {
+		"no-const-assign": "error",
+		"no-this-before-super": "warn",
+		"no-undef": "error",
+		"no-unreachable": "error",
+		"no-unused-vars": "warn",
+		"constructor-super": "warn",
+		"valid-typeof": "warn",
+		"indent": ["warn", "tab"],
+		"quotes": ["error", "single"],
+		"no-extra-parens": "warn"
+	}
+}

@@ -1,0 +1,35 @@
+{
+  "name": "auto-kubernetes-client",
+  "version": "0.0.1",
+  "description": "NodeJS Kubernetes Client with automatic API discovery￼Edit",
+  "main": "src/index.js",
+  "scripts": {
+    "install": "check-node-version --package",
+    "prepublish": "eslint src",
+    "test": "echo 'No tests yet'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Collaborne/auto-kubernetes-client.git"
+  },
+  "keywords": [
+    "kubernetes"
+  ],
+  "author": "Collaborne B.V. <opensource@collaborne.com>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Collaborne/auto-kubernetes-client/issues"
+  },
+  "homepage": "https://github.com/Collaborne/auto-kubernetes-client#readme",
+  "devDependencies": {
+    "eslint": "^3.18.0"
+  },
+  "dependencies": {
+    "check-node-version": "^2.0.1",
+    "flatmap": "0.0.3",
+    "request": "^2.81.0"
+  },
+  "engines": {
+    "node": ">=7.0.0"
+  }
+}
