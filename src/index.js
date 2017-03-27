@@ -209,6 +209,10 @@ module.exports = function connect(config, callback) {
 			return version;
 		}
 
+		if (err) {
+			return callback(err, null);
+		}
+		
 		// Initialize the APIs
 		const apis = {};
 		function _loadApi(groupPath, version) {
