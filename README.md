@@ -44,10 +44,10 @@ npm install --save auto-kubernetes-client
      one must explicitly select the namespace using the `ns(name)` method.
    - Resource collections are available by their name in plural, for example `client.ns('default').pods` represents
      the "pods" resource collection.
-     Resource collections offer resource methods `list`, `watch`, and `deletecollection`.
+     Resource collections offer resource methods `list`, `watch`, and `deletecollection`, as well as `create` to create a new resource.
    - Single (non-collection) resources are available by their singular name, for example `client.ns('default').pod('pod1')`
      represents the "pod" resources for the "pod1" pod.
-     Single resources offer resource methods `get`, `create`, `update` and `delete`.
+     Single resources offer resource methods `get`, `update` and `delete`.
    - Resource methods typically have the signature `method(callback, qs = {})`, where `qs` is a hash for additional query parameters,
      and `callback` is a `function(err, response, data)`. `response` contains the full response as provided by the [request library](https://github.com/request/request), and `data` is the parsed response entity.
    - The `watch` resource method has the signature `watch(callback)`, and `callback` is a `function(err, change)`. If `change` is

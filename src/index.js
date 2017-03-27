@@ -112,6 +112,10 @@ module.exports = function connect(config, callback) {
 								return k8sRequest(resourcePath, { qs, method: 'GET' }, wrapCallback(callback));
 							},
 
+							create: function(object, callback, qs = {}) {
+								return k8sRequest(resourcePath, { qs, method: 'POST', body: object }, wrapCallback(callback));
+							},
+
 							deletecollection: function(callback, qs = {}) {
 								return k8sRequest(resourcePath, { qs, method: 'DELETE' }, wrapCallback(callback));
 							},
@@ -129,10 +133,6 @@ module.exports = function connect(config, callback) {
 						return {
 							get: function(callback, qs = {}) {
 								return k8sRequest(resourcePath, { qs, method: 'GET' }, wrapCallback(callback));
-							},
-
-							create: function(object, callback, qs = {}) {
-								return k8sRequest(resourcePath, { qs, method: 'POST', body: object }, wrapCallback(callback));
 							},
 
 							update: function(object, callback, qs = {}) {
