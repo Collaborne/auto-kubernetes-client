@@ -12,42 +12,42 @@ npm install --save auto-kubernetes-client
 
 1. Create a configuration object
 
-```js
-const config = {
-    url: 'https://k8s.example.com',
-    ca: 'PEM encoded CA certificate',
-    cert: 'PEM encoded client certificate',
-    key: 'PEM encoded client key'
-}
-```
+   ```js
+   const config = {
+       url: 'https://k8s.example.com',
+       ca: 'PEM encoded CA certificate',
+       cert: 'PEM encoded client certificate',
+       key: 'PEM encoded client key'
+   }
+   ```
 
 2. Create the client and connect to the API server
 
-```js
-const AutoK8sClient = require('auto-kubernetes-client');
-AutoK8sClient(config, function(err, client) {
-    if (err) {
-        throw new Error(`Error when connecting: ${err.message}`);
-    }
+   ```js
+   const AutoK8sClient = require('auto-kubernetes-client');
+   AutoK8sClient(config, function(err, client) {
+       if (err) {
+           throw new Error(`Error when connecting: ${err.message}`);
+       }
 
-    // Use client
-});
-```
+       // Use client
+   });
+   ```
 
 3. Invoke methods
 
-The client exposes resources available to the authenticated user using a fairly regular API.
+   The client exposes resources available to the authenticated user using a fairly regular API.
 
-- API groups need to be selected using the `group(name[, version])` method. The "core" API is available
-  directly on the `client` instance.
-- Non-namespaced resources are available directly on the API instance (core/group), for namespaced-resources
-  one must explicitly select the namespace using the `ns(name)` method.
-- Resource collections are available by their name in plural, for example `client.ns('default').pods` represents
-  the "pods" resource collection.
-  Resource collections offer resource methods `list`, `watch`, and `deletecollection`.
-- Single (non-collection) resources are available by their singular name, for example `client.ns('default').pod('pod1')`
-  represents the "pod" resources for the "pod1" pod.
-  Single resources offer resource methods `get`, `create`, `update` and `delete`.
+   - API groups need to be selected using the `group(name[, version])` method. The "core" API is available
+     directly on the `client` instance.
+   - Non-namespaced resources are available directly on the API instance (core/group), for namespaced-resources
+     one must explicitly select the namespace using the `ns(name)` method.
+   - Resource collections are available by their name in plural, for example `client.ns('default').pods` represents
+     the "pods" resource collection.
+     Resource collections offer resource methods `list`, `watch`, and `deletecollection`.
+   - Single (non-collection) resources are available by their singular name, for example `client.ns('default').pod('pod1')`
+     represents the "pod" resources for the "pod1" pod.
+     Single resources offer resource methods `get`, `create`, `update` and `delete`.
 
 ## Examples
 
