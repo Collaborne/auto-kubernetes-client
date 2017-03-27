@@ -53,7 +53,7 @@ The client exposes resources available to the authenticated user using a fairly 
 
 | Example | Description
 |---------|------------
-|[examples/list-pods]|List all pods in the cluster
+|[examples/list-pods](./examples/list-pods)|List all pods in the cluster
 
 ## License
 
