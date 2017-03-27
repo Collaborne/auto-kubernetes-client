@@ -1,6 +1,4 @@
-# auto-kubernetes-client [![Build Status](https://travis-ci.org/Collaborne/auto-kubernetes-client.svg?branch=master)](https://travis-ci.org/Collaborne/auto-kubernetes-client)
-
-[![Greenkeeper badge](https://badges.greenkeeper.io/Collaborne/auto-kubernetes-client.svg)](https://greenkeeper.io/)
+# auto-kubernetes-client [![Build Status](https://travis-ci.org/Collaborne/auto-kubernetes-client.svg?branch=master)](https://travis-ci.org/Collaborne/auto-kubernetes-client) [![Greenkeeper badge](https://badges.greenkeeper.io/Collaborne/auto-kubernetes-client.svg)](https://greenkeeper.io/)
 
 NodeJS Kubernetes Client with automatic API discovery
 
