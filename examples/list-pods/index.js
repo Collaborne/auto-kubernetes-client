@@ -3,9 +3,9 @@
 const fs = require('fs');
 const path = require('path');
 
-const K8sClient = require('.');
+const K8sClient = require('../..');
 
-const userDir = process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'];
+const userDir = process.env[process.platform === 'win32' ? 'USERPROFILE' : 'HOME'];
 const config = {
 	url: 'https://192.168.99.100:8443',
 	ca: fs.readFileSync(path.resolve(userDir, '.minikube/ca.crt'), 'UTF-8'),
