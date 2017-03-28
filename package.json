@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "install": "check-node-version --package",
-    "prepublish": "eslint src",
+    "prepublish": "eslint src examples",
     "test": "echo 'No tests yet'"
   },
   "repository": {
