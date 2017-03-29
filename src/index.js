@@ -170,7 +170,8 @@ module.exports = function connect(config) {
 					},
 
 					update: function(object, qs = {}) {
-						return k8sRequest(resourcePath, { qs, method: 'PUT', body: object });
+						const updateObject = Object.assign({ metadata: { name }}, object);
+						return k8sRequest(resourcePath, { qs, method: 'PUT', body: updateObject });
 					},
 
 					patch: function(object, qs = {}) {
