@@ -27,7 +27,8 @@
   "dependencies": {
     "check-node-version": "^2.0.1",
     "flatmap": "0.0.3",
-    "request": "^2.81.0"
+    "request": "^2.81.0",
+    "through2": "^2.0.3"
   },
   "engines": {
     "node": ">=7.0.0"
