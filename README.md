@@ -48,10 +48,10 @@ npm install --save auto-kubernetes-client
    - Single (non-collection) resources are available by their singular name, for example `client.ns('default').pod('pod1')`
      represents the "pod" resources for the "pod1" pod.
      Single resources offer resource methods `get`, `update`, `patch` and `delete`.
-   - Resource methods typically have the signature `method(callback, qs = {})`, where `qs` is a hash for additional query parameters,
-     and `callback` is a `function(err, response, data)`. `response` contains the full response as provided by the [request library](https://github.com/request/request), and `data` is the parsed response entity.
-   - The `watch` resource method has the signature `watch(callback)`, and `callback` is a `function(err, change)`. If `change` is
-     `null` then the watch was interrupted/ended, otherwise it will be an object with a `type` field ('ADDED', 'DELETED', 'MODIFIED'), and the actual object that was modified.
+   - Resource methods typically have the signature `method(qs = {})`, where `qs` is a hash for additional query parameters,
+     and return a promise for the parsed response entity.
+   - The `watch` resource method has the signature `watch()`, and returns an object stream for the observed changes.
+     Each object has a `type` field ('ADDED', 'DELETED', 'MODIFIED'), and the actual object that was modified.
 
 ## Examples
 
