@@ -58,6 +58,7 @@ npm install --save auto-kubernetes-client
 | Example | Description
 |---------|------------
 |[examples/list-pods](./examples/list-pods)|List all pods in the cluster
+|[examples/watch-pods](./examples/watch-pods)|Watch all pods in a specific namespace
 
 ## License
 
