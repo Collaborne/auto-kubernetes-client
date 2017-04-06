@@ -1,6 +1,8 @@
 # auto-kubernetes-client [![Build Status](https://travis-ci.org/Collaborne/auto-kubernetes-client.svg?branch=master)](https://travis-ci.org/Collaborne/auto-kubernetes-client) [![Greenkeeper badge](https://badges.greenkeeper.io/Collaborne/auto-kubernetes-client.svg)](https://greenkeeper.io/)
 
-NodeJS Kubernetes Client with automatic API discovery
+NodeJS Kubernetes Client with automatic API discovery.
+
+See this [blog post](https://medium.com/collaborne-engineering/keep-pace-with-kubernetes-nodejs-client-b87a8b175b7b) for further information.
 
 ## Installation
 
