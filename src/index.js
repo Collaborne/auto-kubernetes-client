@@ -204,6 +204,15 @@ module.exports = function connect(config) {
 						return Object.assign(result, createResourceAPI(nsResources[resourceKey], `namespaces/${namespace}`));
 					}, {});
 				},
+				/**
+				 * Get information about the resource with the given kind
+				 *
+				 * @param {String} kind
+				 */
+				// XXX: Should this instead exist on the collection or on the single resource via an 'info'/'explain' method?
+				resource: function(kind) {
+					return apiResources.resources.find(resource => kind === resource.kind);
+				},
 
 				// other properties here represent non-namespaced resources
 			};
