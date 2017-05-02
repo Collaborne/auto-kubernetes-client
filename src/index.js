@@ -252,7 +252,19 @@ module.exports = function connect(config) {
 		delete coreApi.name;		
 
 		return Object.assign({}, coreApi, {			
+			/**
+			 * Get the API group with the given name and version
+			 *
+			 * @param {String} groupName name of the group, may optionally contain a '/version' specification
+			 * @param {String} [versionName] version of the group, if not given defaults to the "preferred" version as reported by the server
+			 */
 			group: function(groupName, versionName) {
+				const slashIndex = groupName.indexOf('/');				
+				if (slashIndex !== -1) {
+					versionName = groupName.substring(slashIndex + 1);
+					groupName = groupName.substring(0, slashIndex);
+				}
+
 				const apiGroup = apis[groupName];
 				if (!apiGroup) {
 					throw new Error(`No API group ${groupName} available`);
