@@ -267,6 +267,7 @@ module.exports = function connect(config) {
 
 				const apiGroup = apis[groupName];
 				if (!apiGroup) {
+					// FIXME: APIs might appear later on, we should do a query again here to check
 					throw new Error(`No API group ${groupName} available`);
 				}
 
