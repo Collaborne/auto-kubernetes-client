@@ -54,6 +54,9 @@ npm install --save auto-kubernetes-client
      and return a promise for the parsed response entity.
    - The `watch` resource method has the signature `watch([resourceVersion[, qs]])`, and returns an object stream for the observed changes.
      Each object has a `type` field ('ADDED', 'DELETED', 'MODIFIED', 'ERROR'), and the actual object that was modified.
+   - By default the client interprets 'Status' responses from the server with a 'Failure' status as error responses, and translates
+     them into actual promise rejections. This can be disabled by using '.options({ rawResponse: true}).resourceMethod(...)' on the resource collection
+     or resource.
 
 ## Examples
 

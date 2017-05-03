@@ -66,6 +66,7 @@ module.exports = function connect(config) {
 	 * @returns {Promise<>}
 	 */
 	function k8sRequest(path, extraOptions = {}) {
+		const cooked = !extraOptions.rawResponse;
 		const options = Object.assign({}, configOptions, { json: true }, extraOptions);
 
 		return new Promise(function(resolve, reject) {
@@ -73,6 +74,10 @@ module.exports = function connect(config) {
 				if (err) {
 					return reject(err);
 				} else {
+					if (cooked && data.kind === 'Status' && data.status === 'Failure') {
+						// Synthesize an error from the status
+						return reject(Object.assign(data, new Error(data.message)));
+					}
 					return resolve(data);
 				}
 			});
