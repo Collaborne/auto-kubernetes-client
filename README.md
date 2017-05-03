@@ -53,7 +53,7 @@ npm install --save auto-kubernetes-client
    - Resource methods typically have the signature `method([qs])`, where `qs` is a hash for additional query parameters,
      and return a promise for the parsed response entity.
    - The `watch` resource method has the signature `watch([resourceVersion[, qs]])`, and returns an object stream for the observed changes.
-     Each object has a `type` field ('ADDED', 'DELETED', 'MODIFIED'), and the actual object that was modified.
+     Each object has a `type` field ('ADDED', 'DELETED', 'MODIFIED', 'ERROR'), and the actual object that was modified.
 
 ## Examples
 
