@@ -262,15 +262,17 @@ module.exports = function connect(config) {
 		return Promise.all(apiPromises);
 	}).then(function(apis) {
 		return apis.reduce(function(result, api) {
-			result[api.name] = result[api.name] || {};
-			result[api.name][api.version] = api;
+			// Build a compatible name for this API. Note that both api.name and api.version can end up empty here.
+			const apiNamePrefix = api.name ? `${api.name}/` : '';
+			result[`${apiNamePrefix}${api.version}`] = api;
 			if (api.preferred) {
-				result[api.name][''] = api;
+				result[api.name] = api;
 			}
 			return result;
 		}, {})
 	}).then(function(apis) {
-		const coreApi = Object.assign({}, apis[''][coreVersion]);
+		const coreApi = Object.assign({}, apis[coreVersion]);
+		// Remove the 'name' field from the root object
 		delete coreApi.name;		
 
 		return Object.assign({}, coreApi, {			
@@ -281,21 +283,23 @@ module.exports = function connect(config) {
 			 * @param {String} [versionName] version of the group, if not given defaults to the "preferred" version as reported by the server
 			 */
 			group: function(groupName, versionName) {
-				const slashIndex = groupName.indexOf('/');				
-				if (slashIndex !== -1) {
-					versionName = groupName.substring(slashIndex + 1);
-					groupName = groupName.substring(0, slashIndex);
+				// Calculate a full API name from groupName and version name.
+				let apiName;
+				const slashIndex = groupName.indexOf('/');
+				if (slashIndex === -1) {
+					apiName = versionName ? `${groupName}/${versionName}` : groupName;
+				} else if (versionName) {
+					// Version given in both the groupName and as parameters, use the one from the parameter.
+					const realGroupName = groupName.substring(0, slashIndex);
+					apiName = `${realGroupName}/${versionName}`;
+				} else {
+					apiName = groupName;
 				}
 
-				const apiGroup = apis[groupName];
-				if (!apiGroup) {
-					// FIXME: APIs might appear later on, we should do a query again here to check
-					throw new Error(`No API group ${groupName} available`);
-				}
-
-				const api = apiGroup[versionName || ''];
+				const api = apis[apiName];
 				if (!api) {
-					throw new Error(`No version ${versionName} for API group ${groupName} available`);
+					// FIXME: APIs might appear later on, we should do a query again here to check
+					throw new Error(`No API group ${apiName} available`);
 				}
 
 				return api;
