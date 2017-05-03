@@ -273,7 +273,6 @@ module.exports = function connect(config) {
 					// TODO: support minimally 'status' and possibly 'proxy', 'exec'.
 					default:
 						// A unknown sub-resource, for now just ignore it.
-						console.log(`Found unknown sub-resource ${subResource}, ignoring (${JSON.stringify(resource)})`);
 					}
 				} else if (resource.namespaced) {
 					nsResources[resource.name] = resource;
