@@ -4,6 +4,7 @@ const request = require('request');
 const url = require('url');
 const flatMap = require('flatmap');
 const through2 = require('through2');
+const deepMerge = require('deepmerge');
 
 /**
  * Cluster configuration
@@ -170,7 +171,7 @@ module.exports = function connect(config) {
 					},
 
 					create: function(object, qs = {}) {
-						const createObject = Object.assign({ metadata: { name }}, object);
+						const createObject = deepMerge({ metadata: { name }}, object);
 
 						// Creating happens by posting to the list:
 						let listPath = groupPath + '/';
@@ -183,7 +184,7 @@ module.exports = function connect(config) {
 					},
 
 					update: function(object, qs = {}) {
-						const updateObject = Object.assign({ metadata: { name }}, object);
+						const updateObject = deepMerge({ metadata: { name }}, object);
 						return k8sRequest(resourcePath, { qs, method: 'PUT', body: updateObject });
 					},
 
