@@ -169,6 +169,19 @@ module.exports = function connect(config) {
 						return k8sRequest(resourcePath, { qs, method: 'GET' });
 					},
 
+					create: function(object, qs = {}) {
+						const createObject = Object.assign({ metadata: { name }}, object);
+
+						// Creating happens by posting to the list:
+						let listPath = groupPath + '/';
+						if (pathPrefix) {
+							listPath += pathPrefix + '/';
+						}
+						listPath += resource.name;
+						
+						return k8sRequest(listPath, { qs, method: 'POST', body: createObject });
+					},
+
 					update: function(object, qs = {}) {
 						const updateObject = Object.assign({ metadata: { name }}, object);
 						return k8sRequest(resourcePath, { qs, method: 'PUT', body: updateObject });
