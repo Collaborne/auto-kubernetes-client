@@ -89,7 +89,7 @@ module.exports = function connect(config) {
 			// and a function with that name that returns an object with get/... for the single thing.
 			// If namespaced is set then this is appended to the ns() result, otherwise it is directly
 			// set on the thing.
-			function createResourceCollection(resource, pathPrefix = '') {
+			function createResourceCollection(resource, pathPrefix = '', extraOptions = {}) {
 				let resourcePath = groupPath + '/';
 				if (pathPrefix) {
 					resourcePath += pathPrefix + '/';
@@ -97,6 +97,10 @@ module.exports = function connect(config) {
 				resourcePath += resource.name;
 
 				return {
+					options: function(options) {
+						return createResourceCollection(resource, pathPrefix, Object.assign({}, extraOptions, options));
+					},
+
 					watch: function(resourceVersion = '', qs = {}) {
 						let buffer = Buffer.alloc(0);
 						let bufferLength = 0;
@@ -139,25 +143,25 @@ module.exports = function connect(config) {
 							return callback();
 						});
 
-						return streamK8sRequest(resourcePath, { method: 'GET', json: false, qs: Object.assign({}, qs, { watch: 'true', resourceVersion }) })
+						return streamK8sRequest(resourcePath, Object.assign({}, extraOptions, { method: 'GET', json: false, qs: Object.assign({}, qs, { watch: 'true', resourceVersion }) }))
 							.pipe(parseJSONStream);
 					},
 
 					list: function(qs = {}) {
-						return k8sRequest(resourcePath, { qs, method: 'GET' });
+						return k8sRequest(resourcePath, Object.assign({}, extraOptions, { qs, method: 'GET' }));
 					},
 
 					create: function(object, qs = {}) {
-						return k8sRequest(resourcePath, { qs, method: 'POST', body: object });
+						return k8sRequest(resourcePath, Object.assign({}, extraOptions, { qs, method: 'POST', body: object }));
 					},
 
 					deletecollection: function(qs = {}) {
-						return k8sRequest(resourcePath, { qs, method: 'DELETE' });
+						return k8sRequest(resourcePath, Object.assign({}, extraOptions, { qs, method: 'DELETE' }));
 					},
 				}
 			}
 
-			function createResource(resource, name, pathPrefix = '') {
+			function createResource(resource, name, pathPrefix = '', extraOptions = {}) {
 				let resourcePath = groupPath + '/';
 				if (pathPrefix) {
 					resourcePath += pathPrefix + '/';
@@ -166,8 +170,12 @@ module.exports = function connect(config) {
 				resourcePath += name;
 
 				return {
+					options: function(options) {
+						return createResource(resource, name, pathPrefix, Object.assign({}, extraOptions, options));
+					},
+
 					get: function(qs = {}) {
-						return k8sRequest(resourcePath, { qs, method: 'GET' });
+						return k8sRequest(resourcePath, Object.assign({}, extraOptions, { qs, method: 'GET' }));
 					},
 
 					create: function(object, qs = {}) {
@@ -180,12 +188,12 @@ module.exports = function connect(config) {
 						}
 						listPath += resource.name;
 						
-						return k8sRequest(listPath, { qs, method: 'POST', body: createObject });
+						return k8sRequest(listPath, Object.assign({}, extraOptions, { qs, method: 'POST', body: createObject }));
 					},
 
 					update: function(object, qs = {}) {
 						const updateObject = deepMerge({ metadata: { name }}, object);
-						return k8sRequest(resourcePath, { qs, method: 'PUT', body: updateObject });
+						return k8sRequest(resourcePath, Object.assign({}, extraOptions, { qs, method: 'PUT', body: updateObject }));
 					},
 
 					/**
@@ -209,11 +217,11 @@ module.exports = function connect(config) {
 							contentType = 'application/strategic-merge-patch+json';
 						}
 
-						return k8sRequest(resourcePath, { qs, method: 'PATCH', headers: { 'content-type': contentType }, body: object });
+						return k8sRequest(resourcePath, Object.assign({}, extraOptions, { qs, method: 'PATCH', headers: { 'content-type': contentType }, body: object }));
 					},
 
 					delete: function(qs = {}) {
-						return k8sRequest(resourcePath, { qs, method: 'DELETE' });
+						return k8sRequest(resourcePath, Object.assign({}, extraOptions, { qs, method: 'DELETE' }));
 					},
 				};
 			}
