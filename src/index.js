@@ -187,8 +187,28 @@ module.exports = function connect(config) {
 						return k8sRequest(resourcePath, { qs, method: 'PUT', body: updateObject });
 					},
 
-					patch: function(object, qs = {}) {
-						return k8sRequest(resourcePath, { qs, method: 'PATCH', body: object });
+					/**
+					 * Patch the resource.
+					 *
+					 * The 'contentType' parameter describes how to process the given object:
+					 * 'application/strategic-merge-patch+json': (default) object is a partial representation
+					 * 'application/merge-patch+json': RFC7386 "Merge Patch"
+					 * 'application/json-patch+json': RFC6902 "JSON Patch" (object is an array of operations to apply)
+					 *
+					 * See https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md#patch-operations for details.
+					 *
+					 * @param {any} object the patch to apply
+					 * @param {String} [contentType] the content type
+					 * @param {Object} [qs] additional query parameters
+					 */
+					patch: function(object, contentType = 'application/strategic-merge-patch+json', qs = {}) {
+						// Handle cases where qs is given but not contentType
+						if (typeof contentType === 'object') {
+							qs = contentType;
+							contentType = 'application/strategic-merge-patch+json';
+						}
+
+						return k8sRequest(resourcePath, { qs, method: 'PATCH', headers: { 'content-type': contentType }, body: object });
 					},
 
 					delete: function(qs = {}) {
