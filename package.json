@@ -1,6 +1,6 @@
 {
   "name": "auto-kubernetes-client",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "NodeJS Kubernetes Client with automatic API discovery￼Edit",
   "main": "src/index.js",
   "scripts": {
