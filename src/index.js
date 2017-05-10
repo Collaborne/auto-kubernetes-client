@@ -11,19 +11,19 @@ const deepMerge = require('deepmerge');
  *
  * @typedef Configuration
  * @property {string} url
- * @property {boolean} insecureSkipTlsVerify
- * @property {string} ca
- * @property {string} cert
- * @property {string} key
- * @property {ConfigurationAuth} auth
+ * @property {boolean} [insecureSkipTlsVerify]
+ * @property {string} [ca]
+ * @property {string} [cert]
+ * @property {string} [key]
+ * @property {ConfigurationAuth} [auth]
  */
 /**
  * Cluster user authentication
  *
  * @typedef ConfigurationAuth
- * @property {string} user
- * @property {string} password
- * @property {string} bearer
+ * @property {string} [user]
+ * @property {string} [password]
+ * @property {string} [bearer]
  */
 /**
  * Client
