@@ -11,6 +11,7 @@ const deepMerge = require('deepmerge');
  *
  * @typedef Configuration
  * @property {string} url
+ * @property {string} [version='v1'] requested API version for the "core" group
  * @property {boolean} [insecureSkipTlsVerify]
  * @property {string} [ca]
  * @property {string} [cert]
