@@ -74,34 +74,34 @@ module.exports = function connect(config) {
 			return request(url.resolve(configOptions.url, path), options, function(err, response, data) {
 				if (err) {
 					return reject(err);
-				} else {
-					if (cooked) {
-						let maybeStatus;
-						if (typeof data === 'string') {
-							// The server doesn't (always?) produce a Status for 401/403 errors it seems.
-							// It should according to https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md#http-status-codes,
-							// but likely the authentication/authorization layer prevents that.
-							// See https://github.com/kubernetes/kubernetes/issues/45970
-							maybeStatus = {
-								kind: 'Status',
-								apiVersion: 'v1',
-								metadata: {},
-								status: 'Failure',
-								message: data,
-								reason: response.statusMessage,
-								code: response.statusCode,
-							};
-						} else {
-							maybeStatus = data;
-						}
-
-						if (maybeStatus.kind === 'Status' && maybeStatus.status === 'Failure') {
-							// Synthesize an error from the status
-							return reject(Object.assign(maybeStatus, new Error(maybeStatus.message)));
-						}
-					}
-					return resolve(data);
 				}
+
+				if (cooked) {
+					let maybeStatus;
+					if (typeof data === 'string') {
+						// The server doesn't (always?) produce a Status for 401/403 errors it seems.
+						// It should according to https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md#http-status-codes,
+						// but likely the authentication/authorization layer prevents that.
+						// See https://github.com/kubernetes/kubernetes/issues/45970
+						maybeStatus = {
+							kind: 'Status',
+							apiVersion: 'v1',
+							metadata: {},
+							status: 'Failure',
+							message: data,
+							reason: response.statusMessage,
+							code: response.statusCode,
+						};
+					} else {
+						maybeStatus = data;
+					}
+
+					if (maybeStatus.kind === 'Status' && maybeStatus.status === 'Failure') {
+						// Synthesize an error from the status
+						return reject(Object.assign(maybeStatus, new Error(maybeStatus.message)));
+					}
+				}
+				return resolve(data);
 			});
 		});
 	}
