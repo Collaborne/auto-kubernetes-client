@@ -35,3 +35,8 @@ jspm_packages
 
 # Optional REPL history
 .node_repl_history
+
+# Package lock files
+npm-shrinkwrap.json
+package-lock.json
+yarn.lock
