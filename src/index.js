@@ -212,7 +212,7 @@ function connect(config) {
 							listPath += pathPrefix + '/';
 						}
 						listPath += resource.name;
-						
+
 						return k8sRequest(listPath, Object.assign({}, extraOptions, { qs, method: 'POST', body: createObject }));
 					},
 
@@ -326,9 +326,9 @@ function connect(config) {
 	}).then(function(apis) {
 		const coreApi = Object.assign({}, apis[coreVersion]);
 		// Remove the 'name' field from the root object
-		delete coreApi.name;		
+		delete coreApi.name;
 
-		return Object.assign({}, coreApi, {			
+		return Object.assign({}, coreApi, {
 			/**
 			 * Get the API group with the given name and version
 			 *
