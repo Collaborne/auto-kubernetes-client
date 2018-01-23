@@ -39,7 +39,7 @@ const deepMerge = require('deepmerge');
  * @param {Configuration} config
  * @return {Promise<Client>}
  */
-module.exports = function connect(config) {
+function connect(config) {
 	// Ensure that the config.url ends with a '/'
 	const configOptions = Object.assign({}, config, { url: config.url.endsWith('/') ? config.url : config.url + '/' });
 
@@ -362,3 +362,5 @@ module.exports = function connect(config) {
 		});
 	});
 }
+
+module.exports = connect;
