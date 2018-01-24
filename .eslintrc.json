@@ -10,16 +10,23 @@
 		},
 		"sourceType": "module"
 	},
-	"rules": {
-		"no-const-assign": "error",
-		"no-this-before-super": "warn",
-		"no-undef": "error",
-		"no-unreachable": "error",
-		"no-unused-vars": "warn",
-		"constructor-super": "warn",
-		"valid-typeof": "warn",
-		"indent": ["warn", "tab"],
-		"quotes": ["error", "single"],
-		"no-extra-parens": "warn"
-	}
+
+	"extends": "eslint-config-collaborne",
+
+	"overrides": [
+		{
+			"files": "examples/*/index.js",
+
+			"parserOptions": {
+				"sourceType": "script"
+			}
+		},
+		{
+			"files": "src/index.js",
+
+			"rules": {
+				"sort-keys": "warn"
+			}
+		}
+	]
 }
