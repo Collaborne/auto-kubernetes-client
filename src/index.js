@@ -139,7 +139,7 @@ function connect(config) {
 								const contents = Buffer.alloc(bufferLength + newlineIndex - startIndex);
 								buffer.copy(contents, 0, 0, bufferLength);
 								chunk.copy(contents, bufferLength, startIndex, newlineIndex);
-								this.push(JSON.parse(contents.toString('UTF-8')));
+								parseJSONStream.push(JSON.parse(contents.toString('UTF-8')));
 
 								// Clear the buffer if we used it.
 								if (bufferLength > 0) {
@@ -161,7 +161,7 @@ function connect(config) {
 							return callback();
 						}, function(callback) {
 							if (bufferLength > 0) {
-								this.push(JSON.parse(buffer.toString('UTF-8', 0, bufferLength)));
+								parseJSONStream.push(JSON.parse(buffer.toString('UTF-8', 0, bufferLength)));
 								bufferLength = 0;
 							}
 
