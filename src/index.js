@@ -357,8 +357,10 @@ function connect(config) {
 		const apiPromises = flatMap(apiGroups.groups, group => {
 			return group.versions.map(version => createApi(group.name, `apis/${version.groupVersion}`, version, version.version === group.preferredVersion.version));
 		});
-		apiPromises.push(createApi('', `api/${coreVersion}`, {groupVersion: coreVersion,
-			version: coreVersion}, true));
+		apiPromises.push(createApi('', `api/${coreVersion}`, {
+			groupVersion: coreVersion,
+			version: coreVersion
+		}, true));
 		return Promise.all(apiPromises);
 	}).then(apis => {
 		return apis.reduce((result, api) => {
