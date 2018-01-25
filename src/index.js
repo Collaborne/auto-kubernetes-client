@@ -304,7 +304,7 @@ function connect(config) {
 
 			const nsResources = {};
 			const api = {
-				apiName,
+				name: apiName,
 				version: version.version,
 				preferred,
 				// Other properties here represent non-namespaced resources
