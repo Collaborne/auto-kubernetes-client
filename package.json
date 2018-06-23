@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/Collaborne/auto-kubernetes-client#readme",
   "devDependencies": {
-    "eslint": "^4.0.0",
+    "eslint": "^5.0.0",
     "eslint-config-collaborne": "^1.1.1"
   },
   "dependencies": {
