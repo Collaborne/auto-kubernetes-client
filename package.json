@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "check-node-version": "^3.0.0",
-    "deepmerge": "^2.0.0",
+    "deepmerge": "^3.0.0",
     "flatmap": "0.0.3",
     "request": "^2.81.0",
     "through2": "^2.0.3"
