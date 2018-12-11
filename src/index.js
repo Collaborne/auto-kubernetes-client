@@ -14,6 +14,7 @@ const deepMerge = require('deepmerge');
  * @property {string} [ca]
  * @property {string} [cert]
  * @property {string} [key]
+ * @property {string} [token]
  * @property {ConfigurationAuth} [auth]
  */
 /**
@@ -38,10 +39,19 @@ const deepMerge = require('deepmerge');
  * @return {Promise<Client>} a promise that resolves to a connected client
  */
 function connect(config) {
+	const {token, ...otherConfig} = config;
+	let authConfig = {};
+	if (token) {
+		authConfig = {
+			auth: {
+				bearer: token,
+			},
+		};
+	}
 	// Ensure that the config.url ends with a '/'
-	const configOptions = Object.assign({}, config, {
-		url: config.url.endsWith('/') ? config.url : `${config.url}/`
-	});
+	const configOptions = Object.assign({}, otherConfig, {
+		url: config.url.endsWith('/') ? config.url : `${config.url}/`,
+	}, authConfig);
 
 	/**
 	 * Query the kubernetes server and return a uncooked response stream
