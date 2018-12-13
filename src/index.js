@@ -271,6 +271,9 @@ function connect(config) {
 					 *
 					 * See https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md#patch-operations for details.
 					 *
+					 * Note that not all resources support all patch content types, and an error 415 with a reason "UnsupportedMediaType" may get returned
+					 * in that case.
+					 *
 					 * @param {any} object the patch to apply
 					 * @param {String} [contentType] the content type
 					 * @param {Object} [qs] additional query parameters
