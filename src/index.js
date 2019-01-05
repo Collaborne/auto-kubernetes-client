@@ -360,7 +360,13 @@ function connect(config) {
 			}, api);
 		}
 
-		return k8sRequest(groupPath, {}).then(createApiFromResources);
+		return k8sRequest(groupPath, {})
+			.then(
+				createApiFromResources,
+				() => {
+					console.error(`auto-kubernetes-client failed to acquire API definition for '${apiName}' from '${groupPath}'`);
+				}
+			);
 	}
 
 	const coreVersion = config.version || 'v1';
@@ -378,10 +384,12 @@ function connect(config) {
 	}).then(apis => {
 		return apis.reduce((result, api) => {
 			// Build a compatible name for this API. Note that both api.name and api.version can end up empty here.
-			const apiNamePrefix = api.name ? `${api.name}/` : '';
-			result[`${apiNamePrefix}${api.version}`] = api;
-			if (api.preferred) {
-				result[api.name] = api;
+			if (api) {
+				const apiNamePrefix = api.name ? `${api.name}/` : '';
+				result[`${apiNamePrefix}${api.version}`] = api;
+				if (api.preferred) {
+					result[api.name] = api;
+				}
 			}
 			return result;
 		}, {});
