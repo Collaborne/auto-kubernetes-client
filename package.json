@@ -27,7 +27,7 @@
     "eslint-config-collaborne": "^1.1.1"
   },
   "dependencies": {
-    "check-node-version": "^3.0.0",
+    "check-node-version": "^4.0.0",
     "deepmerge": "^3.0.0",
     "flatmap": "0.0.3",
     "request": "^2.81.0",
