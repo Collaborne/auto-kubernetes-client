@@ -4,6 +4,8 @@ const flatMap = require('flatmap');
 const through2 = require('through2');
 const deepMerge = require('deepmerge');
 
+const {calculateApiName} = require('./utils');
+
 /**
  * Cluster configuration
  *
@@ -401,19 +403,7 @@ function connect(config) {
 			 * @throws {Error} when no API group is available with that name (and version)
 			 */
 			group(groupName, versionName) {
-				// Calculate a full API name from groupName and version name.
-				let apiName;
-				const slashIndex = groupName.indexOf('/');
-				if (slashIndex === -1) {
-					apiName = versionName ? `${groupName}/${versionName}` : groupName;
-				} else if (versionName) {
-					// Version given in both the groupName and as parameters, use the one from the parameter.
-					const realGroupName = groupName.substring(0, slashIndex);
-					apiName = `${realGroupName}/${versionName}`;
-				} else {
-					apiName = groupName;
-				}
-
+				const apiName = calculateApiName(groupName, versionName);
 				const api = apis[apiName];
 				if (!api) {
 					// FIXME: APIs might appear later on, we should do a query again here to check
