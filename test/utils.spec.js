@@ -14,5 +14,11 @@ describe('utils', () => {
 		it('prefers version name', () => {
 			expect(calculateApiName('foo/v1', 'v2')).to.be.equals('foo/v2');
 		});
+		it('handles an empty group name if version is given', () => {
+			expect(calculateApiName('', 'v1')).to.be.equals('v1');
+		});
+		it('handles an empty group name if version is not given', () => {
+			expect(calculateApiName('')).to.be.equals('');
+		});
 	});
 });

@@ -4,7 +4,11 @@ function calculateApiName(groupName, versionName) {
 	let apiName;
 	const slashIndex = groupName.indexOf('/');
 	if (slashIndex === -1) {
-		apiName = versionName ? `${groupName}/${versionName}` : groupName;
+		if (groupName) {
+			apiName = versionName ? `${groupName}/${versionName}` : groupName;
+		} else {
+			apiName = versionName || '';
+		}
 	} else if (versionName) {
 		// Version given in both the groupName and as parameters, use the one from the parameter.
 		const realGroupName = groupName.substring(0, slashIndex);
