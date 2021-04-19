@@ -4,6 +4,8 @@ NodeJS Kubernetes Client with automatic API discovery.
 
 See this [blog post](https://medium.com/collaborne-engineering/keep-pace-with-kubernetes-nodejs-client-b87a8b175b7b) for further information.
 
+**Note: No more updates expected. We are no longer using this project, if you're interested in taking it over please contact us.**
+
 ## Installation
 
 ```sh
